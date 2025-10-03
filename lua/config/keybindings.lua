@@ -15,3 +15,15 @@ vim.keymap.set('n', '<leader>x', '<cmd>x<CR>', { desc = 'Save and close' })
 -- Some remaps
 vim.keymap.set("n", "0", "^")
 vim.keymap.set("n", "^", "0")
+
+-- shift buffers
+vim.keymap.set('n', '<S-h>', '<cmd>bprevious<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<S-l>', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+ -- create and cycle splits
+vim.keymap.set('n', '<leader>-', '<cmd>split<CR>', { desc = "Create horizontal split" })
+vim.keymap.set('n', '<leader>|', '<cmd>vsplit<CR>', { desc = "Create vertical split" })
+
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = "Go to left split" })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = "Go to down split" })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = "Go to up split" })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = "Go to right split" })
