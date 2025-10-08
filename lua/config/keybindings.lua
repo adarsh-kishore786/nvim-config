@@ -34,3 +34,6 @@ vim.keymap.set('n', '=', '<C-w>+', { desc = "Increase height" })
 vim.keymap.set('n', '-', '<C-w>-', { desc = "Decrease height" })
 vim.keymap.set('n', '_', '<C-w><', { desc = "Decrease width" })
 vim.keymap.set('n', '+', '<C-w>>', { desc = "Increase width" })
+
+-- better search
+vim.keymap.set('v', '*', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], { desc = 'Search for visual selection' })
