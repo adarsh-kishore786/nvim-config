@@ -9,7 +9,7 @@ vim.keymap.set('n', '<esc><esc>', '<cmd>nohlsearch<CR>', {desc = 'Remove highlig
 vim.opt.mouse = ""
 
 -- Close
-vim.keymap.set('n', '<leader>q', '<cmd>qa!<CR>', { desc = 'Force close' })
+vim.keymap.set('n', '<leader>bd', '<cmd>bdelete<CR>', { desc = 'Close buffer' })
 vim.keymap.set('n', '<leader>x', '<cmd>xa<CR>', { desc = 'Save and close' })
 
 -- Some remaps
