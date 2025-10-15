@@ -37,3 +37,9 @@ vim.keymap.set('n', '+', '<C-w>>', { desc = "Increase width" })
 
 -- better search
 vim.keymap.set('v', '*', [[y/\V<C-R>=escape(@",'/\')<CR><CR>]], { desc = 'Search for visual selection' })
+
+-- diagnostic remaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set('n', '<leader>o', vim.diagnostic.open_float, { desc = "Open floating diagnostic" })
+vim.keymap.set('n', '<leader>p', vim.diagnostic.setloclist, { desc = "Open list diagnostics" })

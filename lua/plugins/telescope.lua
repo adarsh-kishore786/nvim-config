@@ -42,5 +42,16 @@ return {
     vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Telescope recent files' })
     vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = 'Telescope commands' })
     vim.keymap.set('n', '<leader>fs', builtin.current_buffer_fuzzy_find, { desc = 'Telescope current buffer fuzzy find' })
+    vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Telescope diagnostics' })
+
+    -- Current buffer only
+    vim.keymap.set('n', '<leader>fD', function()
+      builtin.diagnostics({ bufnr = 0 })
+    end, { desc = 'Current buffer diagnostics' })
+
+    -- Only errors
+    vim.keymap.set('n', '<leader>fe', function()
+      builtin.diagnostics({ severity = 'ERROR' })
+    end, { desc = 'Errors only' })
   end,
 }
