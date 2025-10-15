@@ -9,3 +9,4 @@ require('basic.search')
 require('basic.indentation')
 
 require('config.keybindings')
+require('config.autocmds')
