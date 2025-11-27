@@ -5,12 +5,32 @@ return {
     'nvim-lua/plenary.nvim',
     {
       'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make'
-    }
+      build = 'make',
+    },
   },
   config = function()
     require('telescope').setup({
       defaults = {
+        vimgrep_arguments = {
+          "rg",
+          "--follow",        -- Follow symbolic links
+          "--hidden",        -- Search for hidden files
+          "--no-heading",    -- Don't group matches by each file
+          "--no-ignore",     -- Don't respect .gitignore or .ignore files
+          "--with-filename", -- Print the file path with the matched lines
+          "--line-number",   -- Show line numbers
+          "--column",        -- Show column numbers
+          "--smart-case",    -- Smart case search
+
+          -- Exclude some patterns from search
+          "--glob=!**/.git/*",
+          "--glob=!**/.idea/*",
+          "--glob=!**/.vscode/*",
+          "--glob=!**/build/*",
+          "--glob=!**/dist/*",
+          "--glob=!**/yarn.lock",
+          "--glob=!**/package-lock.json",
+        },
         mappings = {
           i = {
             -- Insert mode mappings
@@ -22,10 +42,30 @@ return {
             ["q"] = require("telescope.actions").close,
           },
         },
-
         layout_config = {
           horizontal = {
             preview_width = 0.4,
+          },
+        },
+      },
+      -- Move pickers OUTSIDE of defaults, at the same level
+      pickers = {
+        find_files = {
+          hidden = true,
+          -- needed to exclude some files & dirs from general search
+          -- when not included or specified in .gitignore
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--no-ignore",
+            "--glob=!**/.git/*",
+            "--glob=!**/.idea/*",
+            "--glob=!**/.vscode/*",
+            "--glob=!**/build/*",
+            "--glob=!**/dist/*",
+            "--glob=!**/yarn.lock",
+            "--glob=!**/package-lock.json",
           },
         },
       },
