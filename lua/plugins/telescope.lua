@@ -30,6 +30,7 @@ return {
           "--glob=!**/dist/*",
           "--glob=!**/yarn.lock",
           "--glob=!**/package-lock.json",
+          "-g", "!*.{png,jpg,gif,pdf,exe,bin,o,so,dylib,zip,tar,gz}",
         },
         mappings = {
           i = {
@@ -59,6 +60,7 @@ return {
             "--files",
             "--hidden",
             "--no-ignore",
+            "--no-binary",
             "--glob=!**/.git/*",
             "--glob=!**/.idea/*",
             "--glob=!**/.vscode/*",
@@ -66,6 +68,7 @@ return {
             "--glob=!**/dist/*",
             "--glob=!**/yarn.lock",
             "--glob=!**/package-lock.json",
+            "-g", "!*.{png,jpg,gif,pdf,exe,bin,o,so,dylib,zip,tar,gz}",
           },
         },
       },
