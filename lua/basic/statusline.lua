@@ -1,15 +1,22 @@
+vim.api.nvim_set_hl(0, "StatusLineNormal",  { fg = "#1D9E75", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineInsert",  { fg = "#378ADD", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineVisual",  { fg = "#BA7517", bold = true })
+vim.api.nvim_set_hl(0, "StatusLineGitBranch", { fg = "#ffffff", bg = "#3B6D11" })
+
 local function diagnostic_counts()
   local buf = vim.api.nvim_get_current_buf()
   local e = #vim.diagnostic.get(buf, { severity = vim.diagnostic.severity.ERROR })
   local w = #vim.diagnostic.get(buf, { severity = vim.diagnostic.severity.WARN })
   local h = #vim.diagnostic.get(buf, { severity = vim.diagnostic.severity.HINT })
+  local i = #vim.diagnostic.get(buf, { severity = vim.diagnostic.severity.INFO })
   local result = ""
 
   if e > 0 then result = result .. "%#DiagnosticError# E:" .. e .. " " end
   if w > 0 then result = result .. "%#DiagnosticWarn# W:" .. w .. " " end
   if h > 0 then result = result .. "%#DiagnosticHint# H:" .. h .. " " end
+  if i > 0 then result = result .. "%#DiagnosticInfo# I:" .. i .. " " end
 
-  return result
+  return result .. " %#StatusLine#"
 end
 
 local function git_branch()
@@ -23,7 +30,13 @@ local function git_branch()
   local content = f:read("*l")
   f:close()
 
-  return content:match("ref: refs/heads/(.+)") or ""
+  local text = content:match("ref: refs/heads/(.+)")
+
+  if text then
+    return "%#StatusLineGitBranch# " .. text .. " %#StatusLine# "
+  end
+
+  return ""
 end
 
 local function smart_path()
@@ -56,10 +69,6 @@ local mode_hl = {
   V = "StatusLineVisual"
 }
 
-vim.api.nvim_set_hl(0, "StatusLineNormal",  { fg = "#1D9E75", bold = true })
-vim.api.nvim_set_hl(0, "StatusLineInsert",  { fg = "#378ADD", bold = true })
-vim.api.nvim_set_hl(0, "StatusLineVisual",  { fg = "#BA7517", bold = true })
-
 _G.statusline = function ()
   local m = vim.fn.mode()
 
@@ -70,10 +79,10 @@ _G.statusline = function ()
     mode = "Unknown"
   end
 
-  return "%#" .. hl .. "# [" .. mode .. "] %#StatusLine#"
-      .. smart_path() .. " "
-      .. git_branch() .. " %m "
-      .. diagnostic_counts() .. "%=%l,%c"
+  return "%#" .. hl .. "# [" .. mode .. "] %#StatusLine#" ..
+            git_branch() ..
+            smart_path() .. " %m " ..
+            diagnostic_counts() .. "%=%l,%c"
 end
 
 vim.o.statusline = "%!v:lua.statusline()"
