@@ -21,3 +21,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end
 })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    -- Check if the LSP server supports document colors
+    if client and client:supports_method('textDocument/documentColor') then
+      vim.lsp.document_color.enable(true, args.buf)
+    end
+  end,
+})
